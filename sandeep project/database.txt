@@ -1,0 +1,50 @@
+1:12345:The Great Gatsby:Scott Fitzgerald:1/1/2010:5250:.
+2:12355:War and Peace:Leo tolstoy:1/1/2011:0:.
+3:12555:Lolita:Vladimir Nabokov:1/1/2009:5246:.
+4:15555:Madame Bovary:Gustave Flaubart:1/1/2005:5278:.
+5:55555:Anna Karenina:Leo Tolstoy:1/1/2000:8888:.
+6:11111:Middlemarch:George Eliot:1/1/2002:0:.
+7:11112:The Adventures of Huckleberry Finn:Mark Twain:1/1/2003:5232:.
+8:11122:In Search of Lost Time:Marcel Proust:1/1/1997:1258:.
+9:11222:The Stories of Anton Chechov:Anton Checkov:2/1/2005:1258:.
+10:12222:Hamlet:William Shakespeare:8/9/2000:8765:.
+11:22222:The Odyssey:Homer:6/7/2009:3456:.
+12:21111:The Divine Comedy:Dante Alighieri:4/5/1997:2345:.
+13:22111:The Brothers Karamazov:Fyodor Dostoyevsky:1/2/2003:5432:.
+14:22211:Crime and Punishment:Fyodor Dostoyevsky:4/6/1988:0102:.
+15:22221:Wuthering Heights:Emily Brontë:5/5/2005:0103:.
+16:13333:The Catcher in the Rye:J. D. Salinger:8/9/2000:0987:.
+17:11333:Pride and Prejudice:Jane Austen:9/9/1999:3452:.
+18:11133:Alice's Adventures in Wonderland:Lewis Carroll:4/4/2002:2315:.
+19:11113:The Iliad:Homer:6/6/2004:9872:.
+20:33333:To the Lighthouse:Virginia Woolf:7/7/2007:2341:.
+21:31111:Catch-22:Joseph Heller:9/3/2008:9898:.
+22:33111:Heart of Darkness:Joseph Conrad:7/7/2009:0:.
+23:33311:The Sound and the Fury:William Faulkner:9/6/2005:9854:.
+24:33331:Nineteen Eighty Four:George Orwell:10/12/2011:0:.
+25:23333:Great Expectations:Charles Dickens:4/3/2004:0:.
+26:22333:The Grapes of Wrath:John Steinbeck:15/6/2000:2310:.
+27:22233:Absalom, Absalom:William Faulkner:28/9/2006:0:.
+28:22223:Invisible Man:Ralph Ellison:11/9/2006:6754:.
+29:32222:To Kill a Mockingbird:Harper Lee:2/4/2008:8765:.
+30:33222:The Trial:Franz Kafka:1/1/2001:9864:.
+31:33322:The Red and the Black:Stendhal:4/2/2009:0:.
+32:33332:Gulliver's Travels:Jonathan Swift:3/8/2003:0:.
+33:44444:Beloved:Toni Morrison:2/3/2007:2315:.
+34:43333:Mrs. Dalloway:Virginia Woolf:6/9/2013:7698:.
+35:44333:The Stranger:Albert Camus:1/3/2020:1034:.
+36:44433:Jane Eyre:Charlotte Bronte:3/4/2019:0:.
+37:44443:The Aeneid:Virgil:2/8/2003:0:.
+38:34444:Collected Fiction:Jorge Luis Borges:4/9/2004:4351:.
+39:33444:The Sun Also Rises:Ernest Hemingway:17/3/2002:9453:.
+40:33344:David Copperfield:Charles Dickens:3/9/2009:0:.
+41:33334:Tristram Shandy:Laurence Sterne:23/3/2003:2134:.
+42:55555:Leaves of Grass:Walt Whitman:19/9/2002:8732:.
+43:54444:The Magic Mountain:Thomas Mann:17/6/2001:0:.
+44:55444:Midnight's Children:Salman Rushdie:2/8/2003:0:.
+45:55544:A Portrait of the Artist as a Young Man:James Joyce:2/8/2006:2198:.
+46:55554:Oedipus the King:Sophocles:6/2/2006:0:.
+47:45555:Candide:Voltaire:28/2/2000:0:.
+48:44555:The Lord of the Rings:Tolkien:3/4/2007:0:.
+49:44455:The Idiot:Fyodor Dostoyevsky:5/6/2008:0:.
+50:44445:Les Misérables:Victor Hugo:23/6/2008:0:.
