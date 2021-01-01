@@ -1,0 +1,201 @@
+
+#include<stdio.h>
+#include<stdlib.h>
+#include<dos.h>
+struct electric
+{
+  long int scno;
+  char pname[30];
+  char area[20];
+  float curr_reading;
+  float pre_reading;
+};
+
+  main()
+  {
+  int ch,i;
+  MENU:
+  clrscr();
+  printf("\n 1.Add record");
+  printf("\n 2.View record");
+  printf("\n 3.Delete a record");
+  printf("\n 4.Modify a record");
+  printf("\n 5.Terminate the program");
+  CHOICE:
+    printf("\n Enter Your Choice");
+    scanf("%d",&ch);
+    if(ch<1 && ch>5)
+    goto CHOICE;
+    switch(ch)
+    {
+    case 1:
+	   add_record();
+	   break;
+    case 2:
+	   view_record();
+	   break;
+    case 3:
+	   del_record();
+	   break;
+    case 4:
+	   modify_record();
+	   break;
+    case 5:
+	   exit(0);
+    }
+    goto MENU;
+ }
+
+  add_record()
+  {
+    struct electric r;
+    FILE *eb;
+    char flag;
+    eb=fopen("eb2.dat","ab+");
+    clrscr();
+    do
+    {
+     printf("\n enter sevice connection number --->");
+     scanf("%d",&r.scno);
+     printf("\n enter owner name------------------>");
+     fflush(stdin);
+     gets(r.pname);
+     printf("\n enter area ----------------------->");
+     gets(r.area);
+     printf("\n enter previous month reading------>");
+     scanf("%f",&r.pre_reading);
+     printf("\n enter current month reading------->");
+   yy:  scanf("%f",&r.curr_reading);
+
+     if(r.pre_reading>r.curr_reading)
+     {
+      printf("\n enter the valid current reading \n");
+      goto yy;
+     }
+     fwrite(&r,sizeof(r),1,eb);
+     fflush(stdin);
+     puts("\n add one more records-------->");
+     flag=getchar();
+     }
+     while(toupper(flag)=='Y');
+     fclose(eb);
+     return;
+     }
+  view_record()
+  {
+    struct electric r;
+    FILE *eb;
+    char flag;
+    eb=fopen("eb2.dat","rb+");
+    clrscr();
+     while((fread(&r,sizeof(r),1,eb))!=NULL)
+     {
+     clrscr();
+     printf("\n sevice connection number --->%d",r.scno);
+     printf("\n owner name------------------>%s",r.pname);
+     printf("\n area ----------------------->%s",r.area);
+     printf("\n previous month reading------>%5.2f",r.pre_reading);
+     printf("\n current month reading------->%5.2f",r.curr_reading);
+     getch();
+     }
+     fclose(eb);
+     return;
+    }
+
+    del_record()
+    {
+       struct electric r;
+       FILE *eb,*temp;
+       char name[25];
+       int c=0;
+       char ch;
+       temp=fopen("temp.dat","wb+");
+       eb=fopen("eb2.dat","r+");
+       clrscr();
+       printf("\n\n enter name to be deleted ");
+       scanf("%s",name);
+       rewind(eb);
+       while((fread(&r,sizeof(r),1,eb))!=NULL)
+       {
+	if(strcmp(r.pname,name)==0)
+	 {
+		clrscr();
+		printf("\n sevice connection number --->%d",r.scno);
+		printf("\n owner name------------------>%s",r.pname);
+		printf("\n area ----------------------->%s",r.area);
+		printf("\n previous month reading------>%5.2f",r.pre_reading);
+		printf("\n current month reading------->%5.2f",r.curr_reading);
+		printf("\n confirm to delete this record [y/n]");
+		fflush(stdin);
+		ch=getch();
+
+		if(toupper(ch)=='Y')
+		{
+		c=1;
+		continue;
+		}
+	    else
+
+		 fwrite(&r,sizeof(r),1,temp);
+		}
+		else
+		fwrite(&r,sizeof(r),1,temp);
+	  }
+	  fclose(eb);
+	  fclose(temp);
+	  remove("eb2.dat");
+	  rename("temp.dat","eb2.dat");
+	  remove("temp.dat");
+	  if(c)
+	  printf("\n\n record delete successfully");
+	  else
+	  printf("\n\n record not found");
+	  getch();
+     return;
+
+    }
+    modify_record()
+    {
+       struct electric r;
+       FILE *eb;
+       long int no,pos;
+       char ch;
+       char name[30];
+       eb=fopen("eb2.dat","rb+");
+       clrscr();
+       printf("Enter owner name ------>");
+       scanf("%s",&name);
+       while(eb!=NULL)
+       {
+	 pos=ftell(eb);
+	 fread(&r,sizeof(r),1,eb);
+	 if(strcmp(r.pname,name)==0)
+	 {
+	clrscr();
+	printf("\n sevice connection number --->%d",r.scno);
+	printf("\n owner name------------------>%s",r.pname);
+	printf("\n area ----------------------->%s",r.area);
+	printf("\n previous month reading------>%5.2f",r.pre_reading);
+	printf("\n current month reading------->%5.2f",r.curr_reading);
+	printf("\n\n modify the following details : ");
+	printf("\n\n enter service connection number : ");
+	scanf("%d",&r.scno);
+	printf("\n enter owner name : ");
+	fflush(stdin);
+	gets(r.pname);
+	printf("\n enter area :");
+	gets(r.area);
+	printf("\n enter  previous month reading :");
+	scanf("%f",&r.pre_reading);
+	printf("\n enter current month reading :" );
+	scanf("%f",&r.curr_reading);
+	fseek(eb,0,pos);
+	fwrite(&r,sizeof(r),1,eb);
+	puts(" records updated sucessfully");
+	getch();
+	fclose(eb);
+	return;
+	}
+	}printf("\n invalid service connection no. ");
+	getch();
+	}
