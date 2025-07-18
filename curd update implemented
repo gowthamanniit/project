@@ -1,0 +1,220 @@
+react file:
+import { useState } from "react"
+import axios from 'axios'
+function App()
+{
+  const[rno,setRno]=useState("")
+  const[sname,setSname]=useState("")
+  const[mark,setMark]=useState("")  
+  const [oper,setOper]=useState("")
+  const [list,setList]=useState(null)
+  const dboperation=()=>{
+    if(oper==="Insert")
+    {
+    const url="http://localhost:9111"
+  
+  var sobj={rno:rno,sname:sname,mark:mark}    
+    axios.get(url,{params:sobj}).then((res)=>{
+        console.log(res)
+          setList(res.data)
+    }).catch((err)=>{
+        console.log(err)
+     setList(err)
+    });
+    }
+    if(oper==="Delete")
+    {
+
+  const url="http://localhost:9112"
+  
+  var sobj1={rno:rno}    
+    axios.get(url,{params:sobj1}).then((res)=>{
+        console.log(res)
+          setList(res.data)
+    }).catch((err)=>{
+        console.log(err)
+     setList(err)
+    });
+    }
+    if(oper==="Search")
+    {
+      //-----------------------search------------------
+  const url="http://localhost:9113"  
+  var sobj2={rno:rno}    
+    axios.get(url,{params:sobj2}).then((res)=>{
+        console.log(res)          
+          setList(res.data)
+          setTimeout(()=>{
+          setSname(res.data.sname)
+          setMark(res.data.mark)
+          },3000)
+          
+    }).catch((err)=>{
+        console.log(err)
+     setList(err)
+    });
+
+    }
+
+    if(oper==="Update")
+    {
+      //-----------------------update------------------
+  const url="http://localhost:9114"  
+  var sobj3={rno:rno,sname:sname,mark:mark}    
+    axios.get(url,{params:sobj3}).then((res)=>{
+        console.log(res)          
+          setList(res.data)        
+          
+    }).catch((err)=>{
+        console.log(err)
+     setList(err)
+    });
+
+    }
+  }
+  const dis=(event)=>{
+    if (event.target.id==="t1")
+    setRno(event.target.value)
+    if (event.target.id==="t2")
+    setSname(event.target.value)
+    if (event.target.id==="t3")
+    setMark(event.target.value)
+    
+  }
+  const show=(e)=>{
+    setOper(e.target.id)
+    if (e.target.id==="Insert")
+    {
+      document.getElementById("t1").style.visibility="visible"
+      document.getElementById("t2").style.visibility="visible"
+      document.getElementById("t3").style.visibility="visible"
+      document.getElementById("t2").readOnly=false
+      document.getElementById("t3").readOnly=false
+    }
+    else if(e.target.id==="Delete" )
+    {
+      document.getElementById("t1").style.visibility="visible"
+      document.getElementById("t2").style.visibility="hidden"
+      document.getElementById("t3").style.visibility="hidden"
+    }    
+    else if(e.target.id==="Search" )
+    {
+      document.getElementById("t1").style.visibility="visible"
+      document.getElementById("t2").style.visibility="visible"
+      document.getElementById("t3").style.visibility="visible"
+      document.getElementById("t2").readOnly=true
+      document.getElementById("t3").readOnly=true
+    }    
+    else if(e.target.id==="Update" )
+    {
+      document.getElementById("t1").style.visibility="visible"
+      document.getElementById("t2").style.visibility="visible"
+      document.getElementById("t3").style.visibility="visible"
+      document.getElementById("t2").readOnly=false
+      document.getElementById("t3").readOnly=false
+    }    
+  }
+
+return(<>
+  <input type="radio" name="dboper" id="Insert" onChange={(e)=>show(e)}></input>Insert
+  <input type="radio" name="dboper" id="Delete" onChange={(e)=>show(e)}></input>Delete
+  <input type="radio" name="dboper" id="Search" onChange={(e)=>show(e)}></input>Search
+  <input type="radio" name="dboper" id="Update" onChange={(e)=>show(e)}></input>Update
+  <br></br>
+  
+  <input type="text"  onChange={(e)=>dis(e)} value={rno}  id="t1" placeholder="Rno"></input><br></br>
+  <input type="text"  onChange={(e)=>dis(e)} value={sname} id="t2" placeholder="Sname"></input><br></br>
+  <input type="text"  onChange={(e)=>dis(e)} value={mark} id="t3" placeholder="Mark"></input><br></br>
+
+  <input type="button" onClick={dboperation} value="Submit"></input>
+  <br></br>
+  {(oper!=="" &&  "Database Work :"+oper) || "Nothing Selected"}
+  <br></br>
+      {list!==null && oper==="Insert" && list.acknowledged===true && 
+      <div id="sres">
+      Successfully Inserted:{list.insertedId}
+      </div>}
+    <br></br>
+      {list!==null && oper==="Delete" && list.acknowledged===true && 
+      <div id="sres">
+      {list.deletedCount>0 ? "Successfully Deleted" : " Not Found" }
+      </div>}
+<br></br>
+      {list!==null && oper==="Search" &&  
+      <div id="sres">
+      Student Name:{list.sname}
+      <br></br>
+      Student Mark:{list.mark}      
+      </div>}
+<br></br>
+      {list!==null && oper==="Update" &&  
+      <div id="sres">
+      {(list.modifiedCount>0 && "Successfully updated") || "No update"}
+      
+      
+      </div>}
+
+</>)
+}
+export default App
+
+=================== mvc3.js
+var http=require("http")
+var url=require("url")
+var mydb=require("./mvcdb3")
+
+http.createServer(async (req,res)=>{
+
+res.setHeader('Access-Control-Allow-Origin', '*'); /* @dev First, read about security */
+res.setHeader('Access-Control-Allow-Methods', 'OPTIONS,GET');
+res.setHeader('Access-Control-Max-Age', 2592000); // 30 days
+
+
+    var path=url.parse(req.url,true)
+    console.log(path)
+    var ans1=path.query
+    console.log(ans1)
+    var final=JSON.parse(JSON.stringify(ans1))
+    console.log(final)
+
+    try
+    {
+        res.writeHead(200,{'Content-Type':'application/json'})
+        var result=await mydb.updfun(final)
+        console.log("model to controller:",result)
+        var finres=JSON.parse(JSON.stringify(result))
+        res.write(finres) // controller to view
+    }
+    catch{
+        console.log("error")
+    }
+    finally{
+        res.end() // must give,otherwise donot move contr...to view
+    }
+
+}).listen(9114)
+console.log("port listending at 9114...........")
+
+///=============mvcdb3.js
+
+var {MongoClient}=require("mongodb")
+var client=new MongoClient("mongodb://127.0.0.1:27017/")
+
+async function updfun(inpdata)
+{   
+    var olddata={
+        rno:inpdata.rno
+    }
+    console.log("model:",inpdata)
+    try{
+const dataset=await client.db("student").collection("details").updateOne(olddata,{$set:inpdata})
+console.log("model dataset:",dataset)
+return JSON.stringify(dataset) //send to controller
+    }
+    catch{
+        console.log("model error")
+        await client.close()
+    }
+
+}
+module.exports={updfun}
