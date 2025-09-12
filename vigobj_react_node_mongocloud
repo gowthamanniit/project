@@ -1,0 +1,116 @@
+import { useState } from "react"
+import axios from "axios"
+function App()
+{
+  const [eno,setEno]=useState("")
+  const [ename,setEname]=useState("")
+  const [city,setCity]=useState("")
+  const [output,setOutput]=useState(null)
+
+  const dis=(e)=>{
+    if(e.target.id==="t1")
+          setEno(e.target.value)
+    if(e.target.id==="t2")
+          setEname(e.target.value)
+    if(e.target.id==="t3")
+          setCity(e.target.value)    
+  }
+  const clearfun=()=>{
+    setEno("")
+    setEname("")
+    setCity("")
+    document.getElementById("t1").focus()
+    //window.location.reload()
+  }
+  const insertfun=(e)=>{
+    var input={
+      eno:eno,
+      ename:ename,
+      city:city
+    }
+    console.log("myinput:",input)
+    axios.get("http://localhost:9009",{params:input}).then((res)=>{
+      console.log("success",res.data)
+      setOutput(res.data)
+      clearfun()
+    }).catch((err)=>{ 
+      console.log("error:",err)
+    }).finally(()=>{
+      console.log("end program")
+    })
+
+
+  }
+  return(
+    <>
+        <h1><center>Employee data into Cloud Storage</center></h1>    
+        <input type="text" id="t1" value={eno} onChange={(e)=>dis(e)} placeholder="Enter Employee No."></input>
+        <br></br>
+        <input type="text" id="t2" value={ename} onChange={(e)=>dis(e)} placeholder="Enter Employee Name."></input>
+        <br></br>
+        <input type="text" id="t3" value={city} onChange={(e)=>dis(e)} placeholder="Enter Employee City"></input>
+        <br></br>
+        <input type="button" onClick={(e)=>insertfun(e)}  value="Insert/Save"></input>
+        <br></br>
+        {output!==null && "Successfully Inserted Id:" + output.insertedId}
+    </>
+  )
+}
+export default App
+// using react + mongoclouse (without express & html)
+
+var http=require("http")
+var url=require("url")
+var mcloud=require("./mongocloud1")
+http.createServer(async (req,res)=>{
+console.log("data from react")
+
+res.setHeader('Access-Control-Allow-Origin', '*'); /* @dev First, read about security */
+res.setHeader('Access-Control-Allow-Methods', 'OPTIONS,GET');
+res.setHeader('Access-Control-Max-Age', 2592000); // 30 days
+
+console.log(req.url)
+var myurl=url.parse(req.url,true)
+console.log(myurl)
+var jsonfilter=myurl.query
+console.log(jsonfilter)
+var final=JSON.parse(JSON.stringify(jsonfilter))
+console.log(final)
+
+
+res.writeHead(200,{'content-type':'application/json'})
+var dataset=await mcloud.vvfun(final)
+console.log("mongodb to node:",dataset)
+res.write(JSON.parse(JSON.stringify(dataset)))
+res.end()
+}).listen(9009)
+
+console.log("port listening @ 9009.......")
+
+const { MongoClient, ServerApiVersion } = require('mongodb');
+const uri = "mongodb+srv://gowthaman:RytCo0VbFwc5USyl@vigobjcluster.kzgtat7.mongodb.net/?retryWrites=true&w=majority&appName=vigobjcluster";
+
+// Create a MongoClient with a MongoClientOptions object to set the Stable API version
+const client = new MongoClient(uri, {
+  serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true,
+  }
+});
+async function vvfun(myinput) {
+  try {
+    // Connect the client to the server (optional starting in v4.7)
+    await client.connect();
+    // Send a ping to confirm a successful connection
+    var data=await client.db("gdatabase").collection("edetails").insertOne(myinput)
+    console.log(" You successfully inserted to MongoDB!");
+    return JSON.stringify(data) // goto node server
+
+  } finally {
+    // Ensures that the client will close when you finish/error
+    await client.close();
+  }
+}
+//run().catch(console.dir);
+module.exports={vvfun}  //anywhere to access
