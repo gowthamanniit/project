@@ -1,0 +1,12 @@
+How to open
+Extract the ZIP.
+Open Android Studio.
+Select Open.
+Select the extracted FoodExpress folder.
+Allow Gradle to sync.
+Use JDK 11.
+Run on an emulator or Android phone.
+
+Note: The payment module is intentionally a demo/simulated payment, so it does not process real money.
+
+If Android Studio reports a Gradle/plugin error after opening it, send me the exact error screenshot, and I can adjust the project configuration.
