@@ -1,0 +1,24 @@
+1) Al-based automated defective exhibit identification system placed in a gallery.
+
+2) Al based acoustic wave monitoring of rail defects like cracks, fracture and prediction for rail wear, quality along with other parameter.
+
+3)A smart AI based solution for traffic management on routes with heavy traffic from different directions, with real-time monitoring and adaptation of traffic light timings
+
+4)To develop an Artificial Intelligence (AI) based model for electricity demand projection including peak demand projection for Delhi Power system
+
+5) AI-Powered Student Assistance Chatbot for Department of Technical Education, Government of Rajasthan.
+
+6) AI-Driven Research Engine for Commercial Courts
+
+7)AI tool/mobile app for Indian Sign language(ISL) generator from audio-visual content in English/Hindi to ISL content and vice-versa
+
+8)AI supported AICTE Approval process portal
+
+9) AI-Driven Inclusive Assessment Tools for Skill Ecosystem
+
+10)AI-Enhanced Career Guidance System for Personalized Career Pathways
+
+
+
+
+
