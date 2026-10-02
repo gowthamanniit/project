@@ -1,0 +1,50 @@
+https://otp.dev/en/docs/sms-otp/
+
+email:gnoteskarur1@gmail.com
+
+user name: gowthaman k
+
+UaR@PdDjb2Wjwf5
+
+https://dashboard.otp.dev/apis/keys
+
+api key:
+
+708b59bc299c4f44f7e3e6c496052560
+
+curl --request POST \
+  --url https://api.otp.dev/v1/verifications \
+  --header 'X-OTP-Key: 708b59bc299c4f44f7e3e6c496052560' \
+  --header 'accept: application/json' \
+  --header 'content-type: application/json' \
+  --data '{
+    "data": {
+      "channel": "sms",
+      "sender": "04f45adb-ab95-4919-8a44-4f03ad3ba575", 
+      "phone": "919894083890",
+      "template": "b30c2b11-4952-4755-a72e-92a41b23bcba",
+      "code_length": 4
+    }
+  }'
+
+ex:
+import axios from 'axios';
+
+const url = 'https://api.example.com/data';
+const postData = {
+  name: 'John Doe',
+  occupation: 'Software Developer'
+};
+
+const headers = {
+  'Content-Type': 'application/json',
+  'Authorization': 'Bearer YOUR_ACCESS_TOKEN'
+};
+
+axios.post(url, postData, { headers: headers })
+  .then((response) => {
+    console.log("Response received:", response.data);
+  })
+  .catch((error) => {
+    console.error("Axios error:", error);
+  });
